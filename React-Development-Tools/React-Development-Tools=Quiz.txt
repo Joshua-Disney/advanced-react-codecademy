@@ -1,0 +1,24 @@
+1/4 25% I don't remember learning about any of this but honestly, I didn't want to get a blank square for today.
+
+
+1: When running, what functionality does the browser’s debugger give to developers?
+
+Answer: The debugger allows developers to inspect state and keep track of function calls with the call stack
+
+
+
+2: What is the main purpose of the React Developer Tools’ Components tab? 
+
+Answer: The Components tab allows developers to update a component’s state and props.
+
+
+
+3: What main features are added to the browser’s developer tools with React Developer Tools?
+
+Answer: The Components and Profiler tabs
+
+
+
+4: What is React Developer Tools?
+
+Answer: React Developer tools is a browser extension that allows developers to view components and view/edit component properties and state of React Apps. 
