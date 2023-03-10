@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
- 
+
 export const Counter = () => {
-  
+  // set the state
   const [counter, setCounter] = useState(0);
   
+  // use the effect whenever counter changes
   useEffect(() => {
     if (isPrime(counter)) {
       document.body.style.backgroundImage = 'linear-gradient(to right, coral, teal)';
@@ -12,15 +13,19 @@ export const Counter = () => {
     }
   }, [counter]);
 
+  // create an easy-to-use increment function
+  const increment = () => { setCounter(counter + 1)};
+
   return (  
     <div>
       <h2>Count: {counter}</h2>
-      <button onClick={() => setCounter(counter + 1)}>Click Me!</button>
+      <button onClick={increment}>Click Me!</button>
     </div>
-  );
+  )
 }
 
 
+// Helper function for the custom hook
 const isPrime = (num) => {
   const squareRoot = Math.sqrt(num)
   for (let i = 2; i <= squareRoot; i++) {
@@ -30,24 +35,3 @@ const isPrime = (num) => {
   }
   return num > 1;
 }
-
-
-// import React, { useState, useEffect } from 'react';
- 
-// export const Counter = () => {
-  
-//   const [counter, setCounter] = useState(0);
-  
-//   useEffect(() => {
-//     if (counter===10) {
-//       document.body.style.backgroundImage = 'linear-gradient(to right, coral, teal)';
-//     }
-//   }, [counter]);
-
-//   return (  
-//     <div>
-//       <h2>Count: {counter}</h2>
-//       <button onClick={() => setCounter(counter + 1)}>Click Me!</button>
-//     </div>
-//   );
-// }
