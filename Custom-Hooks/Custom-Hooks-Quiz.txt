@@ -1,0 +1,36 @@
+Quiz Summary
+100% Great job!
+
+
+
+1: Which of the following is NOT a benefit of using custom hooks?
+
+Answer: Custom hooks do not inherently provide any performance benefits.
+
+
+
+2: From the options below, select a proper example of a custom hook.
+
+Answer: const useToggle = (initialValue = false) => {
+    const [state, setState] = useState(initialValue)
+    const toggle = () => setState(!state)
+    return [state, toggle]
+}
+
+
+
+3: What are effect hooks useful for?
+
+Answer: Effect hooks are useful for performing essential functions after render.
+
+
+
+4: Fill in the blanks below to complete the code such that the effect hook will execute after render but only if the theme state updates.
+
+Answer: [theme]
+
+
+
+5: Select the correct statement about the rules of React Hooks from the options below.
+
+Answer: Hooks should only be called at the top level of a function component and can't be called from class components or regular JavaScript functions.
