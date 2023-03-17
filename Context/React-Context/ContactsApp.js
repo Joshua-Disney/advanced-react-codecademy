@@ -25,8 +25,8 @@ export const ContactsApp = () => {
     <ThemeContext.Provider value="light">
       <div>
         <h1>Contacts</h1>
-          <ContactsSection contacts={family} name="Family" theme="dark" />
-          <ContactsSection contacts={friends} name="Friends" theme="dark" />
+          <ContactsSection contacts={family} name="Family" />
+          <ContactsSection contacts={friends} name="Friends" />
       </div>
     </ThemeContext.Provider>
   );
