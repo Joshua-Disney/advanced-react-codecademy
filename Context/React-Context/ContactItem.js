@@ -1,8 +1,22 @@
+// import React, { useContext } from "react";
+// import { ThemeContext } from "./ThemeContext"
+
+// export const ContactItem = ({ name }) => {
+//   const theme = useContext(ThemeContext)
+//   return (
+//     <div className={`theme-${theme}`}>
+//       {name} {theme === "dark" ? "🌑" : "☀"}
+//     </div>
+//   );
+// };
+
+
+
 import React, { useContext } from "react";
-import { ThemeContext } from "./ThemeContext"
+import { ThemeContext } from "./ThemeContext";
 
 export const ContactItem = ({ name }) => {
-  const theme = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
   return (
     <div className={`theme-${theme}`}>
       {name} {theme === "dark" ? "🌑" : "☀"}
