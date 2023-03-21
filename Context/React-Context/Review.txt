@@ -1,0 +1,26 @@
+Review
+
+Congrats, you’ve finished the React Context lesson! Let’s recap what you learned:
+
+    * “Prop drilling” is the term for the common React pattern of data being passed as a 
+    prop through a large number of components in an application.
+    * React Contexts allow us to avoid prop drilling pieces of application state shared 
+    by many components. Contexts come with a .Provider component that can also take in a 
+    value to be made available to child components – without having to prop drill the value.
+    * Child components may subscribe to a Context’s value from their closest parent Provider 
+    with React’s useContext() hook. Components subscribing to a Context will receive the 
+    value for the Provider closest to them in the application tree.
+    * Providers may be given an object containing React state and its corresponding state 
+    updater function. Subscribing child components may then use the state updater function 
+    to update the state for the Context.
+
+Context is one of the many ways React apps can share state across many components without 
+manual prop drilling. Keep in mind, though, that it’s best used sparingly and only for prop 
+drilled values that don’t change very frequently. You’ll see later in the Performance lesson 
+of this course how overusing Context can cause performance issues.
+
+Keep in mind, too, that Context is not always the best solution for your application’s 
+architecture. There are other ways to handle state such as Redux, useReducer, or just useState 
+and prop drilling (which isn’t always a problem). Consider reading through 
+https://kentcdodds.com/blog/application-state-management-with-react to help inform your decision 
+on how to structure your application.
