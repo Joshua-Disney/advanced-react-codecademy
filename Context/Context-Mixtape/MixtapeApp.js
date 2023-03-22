@@ -1,11 +1,14 @@
 import React from "react";
+import { MixtapeProvider } from "./MixtapeContext"
 
 export const MixtapeApp = () => {
   return (
-    <div className="app">
-      <h1 className="heading">My 🔥 Mixtape</h1>
-      TODO: make some music...? 🎶
-    </div>
+    <MixtapeProvider songs={songs}>
+      <div className="app">
+        <h1 className="heading">My 🔥 Mixtape</h1>
+        TODO: make some music...? 🎶
+      </div>
+    </MixtapeProvider>
   );
 };
 
