@@ -1,0 +1,93 @@
+Quiz Summary
+8/9 Correct 88% Great job!
+
+
+
+1: Complete the code to provide the value of "Ciao!" for the GreeterContext Provider:
+
+Answer: <GreeterContext.Provider value='Ciao>
+            {children}
+        </ GreeterContext>
+
+
+
+2: Complete the code to make a Context’s value include both a state value and its updater function:
+
+const CounterContext = React.createContext();
+ 
+const CounterArea = ({ children }) => {
+  
+  _______
+
+  return (
+    <CounterContext.Provider value={______}>
+      {children}
+    </CounterContext.Provider>
+  );
+};
+
+Answer: const [count, setCount] = useState(0), { count, setCount }
+
+
+
+3: Fill in the blanks for declaring a variable that is assigned a new Context object:
+
+Answer: export const CounterContext = React.createContext()
+
+
+
+4: Fill in the blanks to name the popular pattern for passing data through components.
+
+Answer: Prop Drilling
+
+
+
+5: How many times can a Context’s .Provider be used in a React application?
+
+Answer: As many times as you want, including nested uses.
+
+
+
+6: Which of the following is true about Context?
+
+Answer: Context is a feature of React that allows us to create a piece of state that any component within
+an area of your application can subscribe to.
+
+
+
+7: Suppose we have the following context provider component: <GreeterContext.Provider value="Hello!"> which 
+is an ancestor of a <MyGreeterComponent>. Complete the code to consume a provided value from GreeterContext:
+
+import { GreeterContext } from '../contexts/GreeterContext';
+ 
+const MyGreeterComponent = () => {
+  const ______ = ______ ;
+  // …
+}
+ 
+Correct Answer: greeting, useContext(GreeterContext)
+Got this one wrong
+
+
+
+8: What is a reason to create a “wrapper” component around a Context Provider, like the ThemeArea component shown here?
+
+export const ThemeContext = React.createContext();
+ 
+export const ThemeArea = ({children}) => {
+  const [theme, setTheme] = useState('light');
+ 
+  return (
+    <ThemeContext.Provider value={theme, setTheme}>
+      {children}
+    </ThemeContext.Provider>
+  )
+}
+
+Answer: Dedicated wrapper components like this one can be useful to set up a Context’s provided value.
+
+
+
+9: Which of the following can be a consequence of using prop drilling?
+
+Answer: Prop drilling is fine in small amounts, but can become unreadable when used for many props.
