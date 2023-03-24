@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 export const MixtapeContext = React.createContext()
 
-export const MixtapeProvider = (children, songs) => {
+export const MixtapeProvider = ({songs, children}) => {
 
   const [genre, setGenre] = useState('all')
   const [sortOrder, setSortOrder] = useState('ascending')
