@@ -7,7 +7,6 @@ export const SongList = () => {
   const {genre, sortOrder, songs} = useContext(MixtapeContext)
   return (
     <>
-      <h2>TODO: Update taste in music...?</h2>
       <Song artist="Nickelback" genre="rock" name="Photograph" year={2005} />
       {songs.map(song => <Song {...song} key={song.name} />)}
     </>
