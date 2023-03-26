@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-export const MixtapeContext = React.createContext()
+export const MixtapeContext = React.createContext();
 
-export const MixtapeProvider = ({songs, children}) => {
-
-  const [genre, setGenre] = useState('all')
-  const [sortOrder, setSortOrder] = useState('ascending')
-
-  return(
-    <MixtapeContext.Provider value={{ songs, genre, setGenre, sortOrder, setSortOrder }}>
+export const MixtapeProvider = ({ children, songs }) => {
+  const [genre, setGenre] = useState("all");
+  const [sortOrder, setSortOrder] = useState("ascending");
+  return (
+    <MixtapeContext.Provider
+      value={{ songs, genre, setGenre, sortOrder, setSortOrder }}
+    >
       {children}
     </MixtapeContext.Provider>
-  )
-}
+  );
+};

@@ -1,7 +1,7 @@
 import React from "react";
-import { MixtapeProvider } from "./MixtapeContext";
-import { SongList } from "./SongList";
-import { Controls } from "./Controls";
+import { MixtapeProvider } from "./MixtapeContext.js";
+import { SongList } from "./SongList.js";
+import { Controls } from "./Controls.js";
 
 export const MixtapeApp = () => {
   return (
@@ -10,7 +10,7 @@ export const MixtapeApp = () => {
         <h1 className="heading">My 🔥 Mixtape</h1>
         TODO: make some music...? 🎶
       </div>
-      <Controls/>
+      <Controls />
       <SongList />
     </MixtapeProvider>
   );
