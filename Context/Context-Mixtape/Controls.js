@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
-import { MixtapeContext } from "MixtapeContext";
+import { MixtapeContext } from "./MixtapeContext.js";
 
 export const Controls = () => {
-  const { genre, sortOrder } = useContext(MixtapeContext);
-
+  const { genre, setGenre, sortOrder, setSortOrder } = useContext(
+    MixtapeContext
+  );
   return (
     <div className="controls">
       {/* TODO: add some controls! */}
-      <select value={genre}>
+      <select value={genre} onChange={event => setGenre(event.target.value)}>
         <option value="all">All</option>
         <option value="hip hop">Hip Hop</option>
         <option value="rap">Rap</option>
