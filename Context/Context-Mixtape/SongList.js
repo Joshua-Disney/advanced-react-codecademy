@@ -17,6 +17,13 @@ export const SongList = () => {
             return song;
           }
         })
+        .sort((songA, songB) => {
+          if (sortOrder === "ascending") {
+            return songA.year - songB.year;
+          } else {
+            return songB.year - songA.year;
+          }
+        })
         .map((song) => {
           return <Song {...song} key={song.name} />;
         })}
