@@ -16,7 +16,7 @@ export const Controls = () => {
         <option value="pop">Pop</option>
       </select>
       <button
-        onClick={() => setSortOrder("ascending" ? "descending" : "ascending")}
+        onClick={() => setSortOrder(sortOrder === "ascending" ? "descending" : "ascending")}
       >
         {sortOrder}
       </button>

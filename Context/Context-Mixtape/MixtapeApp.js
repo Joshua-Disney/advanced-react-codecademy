@@ -8,7 +8,6 @@ export const MixtapeApp = () => {
     <MixtapeProvider songs={songs}>
       <div className="app">
         <h1 className="heading">My 🔥 Mixtape</h1>
-        TODO: make some music...? 🎶
       </div>
       <Controls />
       <SongList />
