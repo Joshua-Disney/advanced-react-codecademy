@@ -9,10 +9,17 @@ export const SongList = () => {
 
   return (
     <>
-      <Song artist="Nickelback" genre="rock" name="Photograph" year={2005} />
-      {songs.map((song) => {
-        return <Song {...song} key={song.name} />;
-      })}
+      {songs
+        .filter((song) => {
+          if (genre !== "all") {
+            return song.genre === genre;
+          } else {
+            return song;
+          }
+        })
+        .map((song) => {
+          return <Song {...song} key={song.name} />;
+        })}
     </>
   );
 };

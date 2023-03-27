@@ -18,6 +18,12 @@ export const MixtapeApp = () => {
 
 const songs = [
   {
+    artist: "Nickelback",
+    genre: "rock",
+    name: "Photograph",
+    year: 2005,
+  },
+  {
     artist: "Smash Mouth",
     genre: "pop",
     name: "All Star",
