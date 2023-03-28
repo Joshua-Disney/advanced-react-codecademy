@@ -1,54 +1,73 @@
-import ReactDOM from 'react-dom';
-import React, { useState } from 'react';
-import { logError } from './error-logging-service';
+import ReactDOM from "react-dom";
+import React, { useState } from "react";
+import { logError } from "./error-logging-service";
 
-// Create your ErrorBoundary component here
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
 
-function LightSwitch({switchNumber = 1}) {
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+
+  render() {
+    if (this.state.error) {
+      return (
+        <div>
+          <h2>Oooofda</h2>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function LightSwitch({ switchNumber = 1 }) {
   const [isOn, setIsOn] = useState(false);
   const [badSwitchPressed, setBadSwitchPressed] = useState(false);
 
   if (badSwitchPressed) {
-    throw new Error('Why do we even have this switch?');
+    throw new Error("Why do we even have this switch?");
   }
 
-  const bgColor = isOn ? 'white' : 'black';
-  const textColor = isOn ? 'black' : 'white';  
- 
+  const bgColor = isOn ? "white" : "black";
+  const textColor = isOn ? "black" : "white";
+
   const handleLightSwitchClick = () => {
-    setIsOn(isOn => !isOn);
-  }
+    setIsOn((isOn) => !isOn);
+  };
   const handleBadSwitchClick = () => {
     setBadSwitchPressed(true);
-  }
- 
-  return (  
-    <div 
+  };
+
+  return (
+    <div
       className="lightSwitch"
-      style={{background : bgColor, color: textColor}}
+      style={{ background: bgColor, color: textColor }}
     >
       <button onClick={handleLightSwitchClick}>
-        {switchNumber} – {isOn ? "On" : "Off"}
+        {switchNumber}) {isOn ? "On" : "Off"}
       </button>
-      <button onClick={handleBadSwitchClick}>
-        Bad Switch
-      </button>
+      <button onClick={handleBadSwitchClick}>Bad Switch</button>
     </div>
-  )
+  );
 }
 
 function App() {
   return (
     <div className="container">
-      <LightSwitch switchNumber={1}/>
-      <LightSwitch switchNumber={2}/>
-      <LightSwitch switchNumber={3}/>
-      <LightSwitch switchNumber={4}/>
+      <ErrorBoundary>
+        <LightSwitch switchNumber={1} />
+        <LightSwitch switchNumber={2} />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <LightSwitch switchNumber={3} />
+      </ErrorBoundary>
+      <LightSwitch switchNumber={4} />
     </div>
-  )
+  );
 }
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById("root"));
