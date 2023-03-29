@@ -6,17 +6,29 @@ class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { error: null };
+    this.reset = this.reset.bind(this);
+  }
+
+  // Create the reset() function here
+
+  reset() {
+    this.setState({ error: null });
   }
 
   static getDerivedStateFromError(error) {
     return { error };
   }
 
+  componentDidCatch(error, errorInfo) {
+    logError(error, errorInfo);
+  }
+
   render() {
     if (this.state.error) {
       return (
         <div>
-          <h2>Oooofda</h2>
+          <h2>Ooofda!</h2>
+          <button onClick={this.reset}>Start over</button>
         </div>
       );
     }
@@ -48,7 +60,7 @@ function LightSwitch({ switchNumber = 1 }) {
       style={{ background: bgColor, color: textColor }}
     >
       <button onClick={handleLightSwitchClick}>
-        {switchNumber}) {isOn ? "On" : "Off"}
+        {switchNumber} — {isOn ? "On" : "Off"}
       </button>
       <button onClick={handleBadSwitchClick}>Bad Switch</button>
     </div>
