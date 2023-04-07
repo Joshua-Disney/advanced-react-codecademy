@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
+import { ErrorBoundary } from "react-error-boundary";
+
 import { AddThoughtForm } from "./AddThoughtForm";
 import { Thought } from "./Thought";
 import { generateId, getNewExpirationTime } from "./utilities";
@@ -29,11 +31,11 @@ function App() {
       thoughts.filter((thought) => thought.id !== thoughtIdToRemove)
     );
   };
-  
+
   // TODO: Upgrade this fallback component!
   const BlankThought = () => {
     return <p>Oops</p>;
-  }
+  };
 
   return (
     <div className="App">
@@ -41,15 +43,19 @@ function App() {
         <h1>Passing Thoughts</h1>
       </header>
       <main>
-        <AddThoughtForm addThought={addThought} />
+        <AddThoughtForm onError={logError} addThought={addThought} />
         <ul className="thoughts">
-          {thoughts.map((thought) => (
-            <Thought
-              removeThought={removeThought}
-              key={thought.id}
-              thought={thought}
-            />
-          ))}
+          {thoughts.map((thought) => {
+            return (
+              <ErrorBoundary FallbackComponent={BlankThought}>
+                <Thought
+                  removeThought={removeThought}
+                  key={thought.id}
+                  thought={thought}
+                />
+              </ErrorBoundary>
+            );
+          })}
         </ul>
       </main>
     </div>
