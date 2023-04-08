@@ -33,8 +33,8 @@ function App() {
   };
 
   // TODO: Upgrade this fallback component!
-  const BlankThought = () => {
-    return <p>Oops</p>;
+  const BlankThought = (error, resetErrorBoundary, thought) => {
+    return <Thought removeThought={removeTghought} key={thought.id} thought={thought} />
   };
 
   return (
@@ -47,7 +47,9 @@ function App() {
         <ul className="thoughts">
           {thoughts.map((thought) => {
             return (
-              <ErrorBoundary FallbackComponent={BlankThought}>
+              <ErrorBoundary FallbackComponent={(props) =>  {
+                return <BlankThought {...props} thought={thought} />
+              }}>
                 <Thought
                   removeThought={removeThought}
                   key={thought.id}
