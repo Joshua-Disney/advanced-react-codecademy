@@ -33,8 +33,21 @@ function App() {
   };
 
   // TODO: Upgrade this fallback component!
-  const BlankThought = (error, resetErrorBoundary, thought) => {
-    return <Thought removeThought={removeTghought} key={thought.id} thought={thought} />
+  const BlankThought = ({ error, resetErrorBoundary, thought }) => {
+    thought.text = error.message;
+
+    const removeAndReset = () => {
+      removeThought(thought.id);
+      resetErrorBoundary();
+    };
+
+    return (
+      <Thought
+        removeThought={removeAndReset}
+        key={thought.id}
+        thought={thought}
+      />
+    );
   };
 
   return (
@@ -43,21 +56,22 @@ function App() {
         <h1>Passing Thoughts</h1>
       </header>
       <main>
-        <AddThoughtForm onError={logError} addThought={addThought} />
+        <AddThoughtForm addThought={addThought} />
         <ul className="thoughts">
-          {thoughts.map((thought) => {
-            return (
-              <ErrorBoundary FallbackComponent={(props) =>  {
-                return <BlankThought {...props} thought={thought} />
-              }}>
-                <Thought
-                  removeThought={removeThought}
-                  key={thought.id}
-                  thought={thought}
-                />
-              </ErrorBoundary>
-            );
-          })}
+          {thoughts.map((thought) => (
+            <ErrorBoundary
+              onError={logError}
+              FallbackComponent={(props) => {
+                return <BlankThought {...props} thought={thought} />;
+              }}
+            >
+              <Thought
+                removeThought={removeThought}
+                key={thought.id}
+                thought={thought}
+              />
+            </ErrorBoundary>
+          ))}
         </ul>
       </main>
     </div>
