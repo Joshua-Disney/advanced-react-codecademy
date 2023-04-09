@@ -1,0 +1,64 @@
+
+
+
+
+
+1: Which of the following statements is NOT TRUE about the react-error-boundary package?
+
+Answer: react-error-boundary is incredibly popular and implements all of the common error 
+boundary features such as error logging, fallback UIs, and resetting.
+
+
+
+2: Which of the following is NOT a true statement about error boundaries?
+
+Answer: Error boundaries use try/catch syntax to catch errors thrown in their child component tree
+
+
+
+3: Quiz: React Error Boundaries
+
+The componentDidCatch() lifecycle method accepts two arguments: error and errorInfo
+
+Which of the following properties from these arguments contains a list of components that were rendered before the error was thrown? For example:
+
+Error: Why do we even have this switch?
+in LightSwitch (created by App)
+in ErrorBoundary (created by App)
+in div (created by App)
+in App
+
+Answer: errorInfo.componentStack
+
+
+
+4: Where should error boundaries be used in a React application?
+
+Answer: As close as possible to components that are potential sources of runtime errors
+
+
+
+5: Fill in the blanks below to complete the code such that the <ErrorBoundary> component updates this.state and renders a fallback when an error occurs.
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null }
+  }
+ 
+   {
+    
+  }
+ 
+ 
+  render() {
+    if (this.state.error) {
+      return <p>Uh oh! Something went wrong.</p>;
+    }
+    else {
+      return this.props.children;
+    }
+  }
+}
+
+Answer: 
