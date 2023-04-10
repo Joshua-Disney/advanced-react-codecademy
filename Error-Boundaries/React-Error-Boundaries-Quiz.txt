@@ -1,24 +1,31 @@
-
-
+Quiz Summary
+React Error Boundaries
+75% Great job!
 
 
 
 1: Which of the following statements is NOT TRUE about the react-error-boundary package?
 
-Answer: react-error-boundary is incredibly popular and implements all of the common error 
-boundary features such as error logging, fallback UIs, and resetting.
+Answer: Developers are NOT encouraged to use third party packages like react-error-boundary.
+Instead, they should always create their own error boundaries.
 
 
 
-2: Which of the following is NOT a true statement about error boundaries?
+2: Fill in the blanks below to complete the code such that the <ErrorBoundary> component from react-error-boundary uses the logError function to log errors that are thrown.
 
-Answer: Error boundaries use try/catch syntax to catch errors thrown in their child component tree
+const App = () => {
+  return (
+    <ErrorBoundary  = {  } >
+      <MyErrorProneComponent />
+    </ErrorBoundary>
+  )
+} 
+
+Answer: onError   logError
 
 
 
-3: Quiz: React Error Boundaries
-
-The componentDidCatch() lifecycle method accepts two arguments: error and errorInfo
+3: The componentDidCatch() lifecycle method accepts two arguments: error and errorInfo
 
 Which of the following properties from these arguments contains a list of components that were rendered before the error was thrown? For example:
 
@@ -32,9 +39,10 @@ Answer: errorInfo.componentStack
 
 
 
-4: Where should error boundaries be used in a React application?
+4: Which of the following is a TRUE statement about React error boundaries?
 
-Answer: As close as possible to components that are potential sources of runtime errors
+Answer: React error boundaries must be implemented as class components.  React error boundaries must implement the lifecycle methods 
+static getDerivedStateFromError() and componentDidCatch(), both of which are accessible only from class components.
 
 
 
@@ -61,4 +69,41 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-Answer: 
+Answer: I legitimately don't know.  I got it wrong and it's not showing me the correct answer.
+
+
+
+6: Fill in the blanks below to complete the code such that the <ErrorBoundary> component from react-error-boundary renders a fallback UI. The fallback UI should have a button to reset the error boundary.
+
+import { ErrorBoundary } from 'react-error-boundary';
+ 
+const FallbackUI = () => {
+  return (
+    <>
+      <p> Uh oh! Something went wrong. </p>
+      <button >Reset</button>
+    </>
+  )
+}
+ 
+const App = () => {
+  return (
+    <>
+      <MyErrorProneComponent />
+    </ErrorBoundary>
+  )
+} 
+ 
+Answer: { resetErrorBoundary }, onClick={resetErrorBoundary}, ErrorBoundary FallbackComponent={FallbackUI}
+
+
+
+7: Which of the following is NOT a true statement about error boundaries?
+
+Answer: Error boundaries use try/catch syntax to catch errors thrown by their child component trees.
+
+
+
+8: Where should error boundaries be used in a React application?
+
+Answer: As close as possible to components that are potential sources of runtime errors.
