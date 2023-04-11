@@ -1,0 +1,135 @@
+React Profiler
+
+React provides a profiler browser extension that can identify performance bottlenecks so that we can make our apps as fast as possible.
+Introduction
+
+React is fast by default, until it isn’t. It’s possible to write code that will cause needless re-renders and re-computations that will make our apps slow. Luckily, React has built-in tools to identify these bottlenecks and performance techniques that can help us make our apps as fast as possible. The only thing left to do is to figure out where and when to apply them. In this article, we’ll learn how to use the React Profiler to spot performance bottlenecks in our apps.
+
+If you’d like to follow along with the example application, you can download the source code. Once you have downloaded the code, run the commands npm install and npm start in the root terminal of the application.
+
+We’ve included this article in video form too. You can watch here or scroll down to keep reading!
+Example App
+
+We’ll use an example app to demonstrate how to identify performance issues. This app allows a user to write an article, then it shows a predicted reading time to the user.
+
+An app with a text box to write words and get a predicted reading time. There is a button that says "What are these stats?"
+
+To make sure that the user knows what the “Reading time” is and how it is calculated, this app has a button to show an explanation of the reading time. When clicked, it renders an element with more information under “Reading time”.
+
+The same reading time application, now displaying the reading time explanation which explains that the reading time is based on an average reading speed of 238 words per minute.
+
+When we write text inside the text area, the app feels fast. We can type and click on the “What are these stats?” button and there is no delay. However, if we paste in a large amount of text, like the text of the Wikipedia article for what a computer program is, the app will begin to slow down. Typing is slow and even clicking the button to show the reading time explanation is slow. As it turns out, there’s a performance issue in this app.
+
+Clicking a button and seeing the UI slowly update
+
+Let’s learn how we can identify the issue with the React profiler.
+An Overview of How React Applies Changes
+
+To understand how the React profiler works, let’s briefly talk about how React applies changes to the DOM.
+
+Render phase and the commit phase
+
+React applies changes in two phases. The first is the render phase.
+
+In the render phase, React maintains a copy of the DOM (called the “virtual DOM”) so that when React sees that a change occurred, it can calculate what DOM elements need to be changed by comparing the state of the virtual DOM before and after the change.
+
+For instance, before we click the “What are these stats?” button, the virtual DOM has no element explaining what the reading time stat means. Once we click the button, React sees that change and it renders the new version of the app.
+
+Once React has both the before and an after states of the DOM, it compares them to find what changes it needs to apply to the real DOM. As it turns out, making changes to the real DOM is slow, so React makes as few changes as possible.
+
+That brings us to the second phase: the commit phase.
+
+Once React knows which elements need to change using its own VDOM, it makes the changes to the browser’s DOM to display the new state of our app. This second phase is how the React profiler organizes its data, so keep the “commit phase” in mind — we’ll be discussing it again soon.
+
+Let’s take a look.
+Profiler
+
+The React team creates and maintains developer tools to help us write and debug our React apps. To access the React profiler, we’ll need to download a browser extension.
+
+We recommend using Chrome or Firefox, which both support the React developer tools.
+
+Chrome browser extension store on the React Developer tools extension page
+
+This is the Chrome Web Store extension page for the React developer tools. Here we can click “Add to Chrome” to install the React developer tools.
+
+Once we’ve installed the extension, we can run an app locally and see the React profiler tool as a new tab in the developer tools. To open the developer tools, navigate to the View > Developer > Developer tools menu. From there, we’ll click on the “Profiler” tab.
+Recording a Session & Reading a Flame Graph
+
+Remember how we said that the React profiler uses the commit phase to organize its data? The profiler has a round blue record button on the left that will record all the commits made during a session.
+
+Record button the React profiler
+
+After clicking it, a session will begin recording. During the session, we can click around inside our app. Once we’re done, we can click the record button again to stop recording the session and to see the results. Once we stop the session, the profiler will show us information about how React worked during our session.
+
+The first graph we see is the flame graph, which are the long blue and yellow horizontal bars. Flame graphs show the hierarchy of components that were called during our session and can help us figure out where performance issues may be occurring.
+
+Flame graph showing a blue and yellow bar
+
+The first horizontal bar is blue and says “App”. The label on each bar corresponds to the component name. That is the top-level component in our app and is the first thing that renders.
+
+Below that, there’s the “ArticleStats” bar which is yellow. It sits below “App” in this case because our “App” component renders the “ArticleStats” component. If the ArticleStats component rendered other components, they would sit below the “ArticleStats” yellow bar.
+
+The width of the bars is also meaningful. The wider each bar is, the longer it took to render. In this case, App rendered ArticleStats. App took 0.1ms to render, while ArticleStats took 931.8ms to render.
+
+In the profiler, the longer something takes to render, the more yellow the bar will be. The shorter something takes to render, the bluer the bar will be. So, when we see yellow bars, there may be some performance bottleneck we may want to address.
+
+React profiler commit navigator
+
+Above the flame graph, there’s a row of each commit. We can click on each commit to see a flame graph of that particular render/commit phase. If we remember what actions we performed, we can zero in on which actions are causing performance bottlenecks.
+
+Sometimes, it’s helpful to record a session immediately when the page loads to see any bottlenecks during the first render. We can start a session after reloading by clicking only the refresh icon next to the record button.
+
+React profiler reload button
+
+Finally, the profiler has some settings which can be extremely helpful. For example, we can click on the settings cog, then check the box for “Highlight updates when components render”.
+
+React profiler general tab settings
+
+This option will show a highlighted border around any element that is committed by React as we use the app.
+
+Next, we can click on the “Profiler” tab and check “Record why each component rendered while profiling”.
+
+React profiler profiler tab settings
+
+This option will show us more information in the profiler about why a particular component needed to change.
+Fixing a performance bottleneck
+
+Now that we know our way around the Profiler, let’s get back to addressing the performance bottleneck. If we click on the “ArticleStats” bar in the flame graph in the React profiler, we see that the component rendered because “Props changed: (showExplanation”). In addition, we can see that it’s taking around 700ms to render.
+
+Explanation of why ArticleStats rendered
+
+This gives us a clue as to what we should inspect in our app, so let’s jump into the code.
+
+When we clicked on the “What are these stats?” button, our app sent a prop into the <ArticleStats /> component to toggle an element that describes the reading time stat.
+
+Since we changed one prop provided to <ArticleStats />, React assumes that we need to re-run all of the component’s logic.
+
+The problem is that the component does an expensive and long-running calculation to compute the reading time stat.
+
+We could make this a lot faster by only running that calculation if the text prop changes and ignoring that calculation if only the showExplanation prop changes.
+
+To fix this particular issue, we can leverage the useMemo() React hook. We can implement it by changing this code:
+
+const readingTime = getReadingTime(text);
+
+into this code:
+
+const readingTime = useMemo(() => getReadingTime(text), [text]);
+
+The useMemo() hook takes a function as its first argument and a list of props as its second argument. If the list of props changes, then it will run the function. Importantly, if the props do not change, then useMemo() will return the last calculated value without recalculating the result. This is called memoization, hence the name of useMemo().
+
+After making this change, we can record another session and see what happens.
+
+Flame graph showing ArticleStats taking 0.1ms to render
+
+Now the <ArticleStats /> component takes fractions of a millisecond to render instead of 900 - 1,000ms to render. You may notice that now both bars are yellow. That’s because they’re both about equally as slow now, so while we can focus on the colors of the bars when identifying issues, it’s important to focus on the render time after making performance improvements. This is a big performance improvement and will make our writing app feel a lot more responsive.
+When to use the React profiler
+
+Our goal with all performance improvements is to make our apps faster for our users. When an interaction feels slow and we’re waiting for an element to update in the DOM, then the React profiler is often a good tool to help identify what may be causing a performance bottleneck.
+
+With that said, the React profiler is just one tool we can use to try and identify an issue. Some bottlenecks may be easier to locate with other tools, like the “Performance” tab in the built-in developer tools.
+Wrap up
+
+The React developer tools provide a profiler tab in our browser’s developer tools, which can record a session and show us various data from that session. Once we’ve identified a performance bottleneck, then we can fix the issue and verify our fix by recording another session.
+
+With the React profiler, we can measure our apps before and after changes we make, which takes the guesswork out of making our apps faster.
